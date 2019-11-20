@@ -1,7 +1,6 @@
-<template>
-  <div>
-    <Recipes />
-  </div>
+<template lang="pug">
+  div
+    Recipes
 </template>
 
 <script>
