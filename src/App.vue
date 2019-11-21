@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    Recipes
+    router-view
 </template>
 
 <script>
