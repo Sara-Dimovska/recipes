@@ -24,11 +24,11 @@
             </b-table-column>
 
             <b-table-column field="prep_instructions" label="Preparation instructions" sortable>
-              {{ recipes.row.prep_instructions }}
+              {{ showPreparationInstructions(recipes.row.prep_instructions) }}
             </b-table-column>
 
             <b-table-column field="prep_time" label="Preparation time" sortable>
-              {{ recipes.row.prep_time }}
+              {{ showPreparationTime(recipes.row.prep_time) }}
             </b-table-column>
 
 
@@ -57,20 +57,20 @@ export default {
         {
         "id": "1",
         "name":"Лиснато тесто со фил од тиква",
-        "source": "https://moirecepti.mk/post/%D0%BB%D0%B8%D1%81%D0%BD%D0%B0%D1%82%D0%BE-%D1%82%D0%B5%D1%81%D1%82%D0%BE-%D1%81%D0%BE-%D1%84%D0%B8%D0%BB-%D0%BE%D0%B4-%D1%82%D0%B8%D0%BA%D0%B2%D0%B0",
+        "source": "https://moirecepti.mk/post/",
         "ingretients_number": 3,
         "ingredients": "500 гр. пире од тиква, 200 гр. крем сирење,250 гр. купено, готово лиснато тесто",
         "prep_instructions": "Во длабок сад се меша бла бла бла",
-        "prep_time": "60:00"
+        "prep_time": "02:15"
     },
     {
         "id": "2",
         "name":"Лиснато тесто со фил од тиква",
-        "source": "https://moirecepti.mk/post/%D0%BB%D0%B8%D1%81%D0%BD%D0%B0%D1%82%D0%BE-%D1%82%D0%B5%D1%81%D1%82%D0%BE-%D1%81%D0%BE-%D1%84%D0%B8%D0%BB-%D0%BE%D0%B4-%D1%82%D0%B8%D0%BA%D0%B2%D0%B0",
+        "source": "https://moirecepti.mk/post/",
         "ingretients_number": 8,
         "ingredients": "1, 2,3, готово лиснато тесто,250 гр. купено, готово лиснато тесто,250 гр. купено, готово лиснато тесто",
-        "prep_instructions": "Во длабок сад се меша бла бла бла",
-        "prep_time": "60:00"
+        "prep_instructions": "Во длабок сад се меша бла бла бла Во длабок сад се меша бла бла бла Во длабок сад се меша бла бла бла  Во длабок сад се меша бла бла бла",
+        "prep_time": "00:45"
     }
     ]
     }
@@ -83,8 +83,30 @@ export default {
       if(num === 3)
         return ingredients
       var ingredients_split = ingredients.split(',').slice(0,3)
-      return ingredients_split.join() + ' (...)'
+        return ingredients_split.join() + ' (...)'
+    },
+    showPreparationInstructions(instructions) {
+      var maxLength = 50 // maximum number of characters to extract
+      
+      if(instructions.length <= maxLength)
+        return instructions
+
+      var instructions_split = instructions.split(' ')
+
+      var instructions_split = instructions.substr(0, maxLength);
+
+      //re-trim if we are in the middle of a word
+      instructions_split = instructions_split.substr(0, Math.min(instructions_split.length, instructions_split.lastIndexOf(" ")))
+      return instructions_split
+      
+    },
+    showPreparationTime(time){
+      var time_split = time.split(':')
+      if(time_split[0] !== '00' )
+        return `${time_split[0]} hours ${time_split[1]} minutes`
+      return `${time_split[1]} minutes`
     }
+    
   },
   async mounted () {
     //this.recipes = (await RecipesService.index())
