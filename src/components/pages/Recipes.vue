@@ -12,7 +12,7 @@
             </b-table-column>
 
             <b-table-column field="source" label="Source" sortable>
-              {{ recipes.row.source }}
+                <a v-bind:href="recipes.row.source">{{ recipes.row.source }} </a>
             </b-table-column>
 
             <b-table-column field="ingretients_number" label="Number of ingredients" sortable>
@@ -33,7 +33,7 @@
 
 
             <b-table-column label="View">
-               <v-btn cyan @click="navigateTo({name: 'details'})"  > View </v-btn>
+               <v-btn cyan @click="navigateTo({name: 'details', query: {id: recipes.row.id} })"  > View </v-btn>
             </b-table-column>
 
             <b-table-column label="Delete">
@@ -46,38 +46,19 @@
 
 <script>
 import RecipesService from '@/services/RecipesService'
+import { BLink } from 'bootstrap-vue'
 
 export default {
   components: {
   },
   data () {
     return {
-      recipes: [],
-      initialRecipes: [
-        {
-        "id": "1",
-        "name":"Лиснато тесто со фил од тиква",
-        "source": "https://moirecepti.mk/post/",
-        "ingretients_number": 3,
-        "ingredients": "500 гр. пире од тиква, 200 гр. крем сирење,250 гр. купено, готово лиснато тесто",
-        "prep_instructions": "Во длабок сад се меша бла бла бла",
-        "prep_time": "02:15"
-    },
-    {
-        "id": "2",
-        "name":"Лиснато тесто со фил од тиква",
-        "source": "https://moirecepti.mk/post/",
-        "ingretients_number": 8,
-        "ingredients": "1, 2,3, готово лиснато тесто,250 гр. купено, готово лиснато тесто,250 гр. купено, готово лиснато тесто",
-        "prep_instructions": "Во длабок сад се меша бла бла бла Во длабок сад се меша бла бла бла Во длабок сад се меша бла бла бла  Во длабок сад се меша бла бла бла",
-        "prep_time": "00:45"
-    }
-    ]
+      recipes: []
     }
   },
   methods: {
-    navigateTo (route) {
-      this.$router.push(route)
+    navigateTo (navigation) {
+      this.$router.push( { name: navigation.name, query: navigation.query })
     },
     showInstructions(ingredients, num) {
       if(num === 3)
@@ -108,10 +89,8 @@ export default {
     }
     
   },
-  async mounted () {
-    //this.recipes = (await RecipesService.index())
-    //console.log(this.recipes)
-    this.recipes = this.initialRecipes
+   mounted () {
+    this.recipes = RecipesService.index()
   }
 }
 </script>

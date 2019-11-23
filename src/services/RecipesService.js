@@ -1,21 +1,11 @@
-/* eslint-disable quotes */
-var recipes = [
-  {
-    id: "1",
-    name: "pilesko"
-  },
-  {
-    id: "2",
-    name: "pilesko2"
-  },
-  {
-    id: "3",
-    name: "pilesko3"
-  }
-]
+import recipes from '@/data/recipes'
 
 export default {
   index () {
     return recipes
+  },
+  get (id) {
+    // console.log(recipes.find(element => element.id === id))
+    return recipes.find(element => element.id === id)
   }
 }
