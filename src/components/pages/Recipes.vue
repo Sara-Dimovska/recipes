@@ -91,6 +91,7 @@ export default {
   },
    mounted () {
     this.recipes = RecipesService.index()
+
   }
 }
 </script>
