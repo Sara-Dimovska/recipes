@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Recipes from '@/components/pages/Recipes'
 import RecipeDetails from '@/components/pages/RecipeDetails'
+import AddRecipe from '@/components/pages/AddRecipe'
 
 Vue.use(Router)
 
@@ -13,9 +14,14 @@ export default new Router({
       component: Recipes
     },
     {
-      path: '/details',
+      path: '/recipes/details',
       name: 'details',
       component: RecipeDetails
+    },
+    {
+      path: '/recipes/add-recipe',
+      name: 'add-recipe',
+      component: AddRecipe
     }
   ]
 })

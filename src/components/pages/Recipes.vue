@@ -1,47 +1,23 @@
-<template >
-  <div>
-    <b-table :data="recipes" default-sort="priority">
-          <template slot-scope="recipes">
-
-            <b-table-column field="id" label="ID" width="40" sortable numeric>
-              {{ recipes.row.id }}
-            </b-table-column>
-
-            <b-table-column field="name" label="Name" sortable>
-              {{ recipes.row.name }}
-            </b-table-column>
-
-            <b-table-column field="source" label="Source" sortable>
-                <a v-bind:href="recipes.row.source">{{ recipes.row.source }} </a>
-            </b-table-column>
-
-            <b-table-column field="ingretients_number" label="Number of ingredients" sortable>
-              {{ recipes.row.ingretients_number }}
-            </b-table-column>
-
-            <b-table-column field="ingredients" label="Ingredients" sortable>
-              {{ showInstructions(recipes.row.ingredients,recipes.row.ingretients_number) }}
-            </b-table-column>
-
-            <b-table-column field="prep_instructions" label="Preparation instructions" sortable>
-              {{ showPreparationInstructions(recipes.row.prep_instructions) }}
-            </b-table-column>
-
-            <b-table-column field="prep_time" label="Preparation time" sortable>
-              {{ showPreparationTime(recipes.row.prep_time) }}
-            </b-table-column>
-
-
-            <b-table-column label="View">
-               <v-btn cyan @click="navigateTo({name: 'details', query: {id: recipes.row.id} })"  > View </v-btn>
-            </b-table-column>
-
-            <b-table-column label="Delete">
-               <b-button variant="success">Delete</b-button>
-            </b-table-column>
-          </template>
-        </b-table>
-  </div>
+<template lang="pug">
+  div
+    header
+      v-btn(@click="this.$router.push('add-recipe')") Add new recipe
+    section 
+      b-table(:data="recipes" default-sort="priority")
+        template(slot-scope="recipes")
+          b-table-column(field="id" label="ID" width="40" sortable numeric) {{ recipes.row.id }}
+          b-table-column(field="name" label="Name" sortable) {{ recipes.row.name }}
+          b-table-column( field="source" label="Source" sortable)
+            a(v-bind:href="recipes.row.source") {{ recipes.row.source }}
+          b-table-column(field="ingretients_number" label="Number of ingredients" sortable) {{ recipes.row.ingretients_number }}
+          b-table-column(field="ingredients" label="Ingredients" sortable) {{ showInstructions(recipes.row.ingredients,recipes.row.ingretients_number) }}
+          b-table-column(field="prep_instructions" label="Preparation instructions" sortable) {{ showPreparationInstructions(recipes.row.prep_instructions) }}
+          b-table-column(field="prep_time" label="Preparation time" sortable) {{ showPreparationTime(recipes.row.prep_time) }}
+          b-table-column(label="View")
+            v-btn(cyan @click="navigateTo({name: 'details', query: {id: recipes.row.id} })") View 
+          b-table-column(label="Delete")
+            b-button(variant="success") Delete
+            
 </template>
 
 <script>
