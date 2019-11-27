@@ -61,7 +61,6 @@ import Ingredients from '@/components/Ingredients'
       addNewRecipe() {
         let lastRecipeId = this.$store.state.ID
         this.recipe.id = ++lastRecipeId
-        console.log(this.recipe.id)
         this.recipe.prep_time = this.hours + ":" + this.minutes
         console.log(this.recipe)
       },
