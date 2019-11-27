@@ -21,7 +21,7 @@
         v-card-text By confirming this action this recipe will be delited.
         v-card-actions
           v-spacer
-          v-btn(@click="confirmDeleteDialog = false") Yes
+          v-btn(color="error" @click="confirmDeleteDialog = false") Yes
           v-btn(@click="confirmDeleteDialog = false") Cancel
 </template>
 

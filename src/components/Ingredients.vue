@@ -14,6 +14,11 @@
         'blabla'
       ]
     }
+  },
+  methods: {
+    passData() {
+      this.$emit('sendIngredientsData','asd')
+    }
   }
   }
 </script>
