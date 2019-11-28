@@ -4,7 +4,7 @@
       div
         v-row(style="margin:25px;")
           p(class="font-weight-black" style="font-size: 2em; margin-right:10px;") Recipe list:
-          v-btn(color="primary" fab small dark @click="this.$router.push('add-recipe')") +
+          v-btn(color="primary" fab small dark @click="this.$router.push( { name: 'add-recipe' })") +
     section 
       div(style="margin:25px;")
         b-table(:data="recipes" default-sort="priority")
@@ -14,7 +14,7 @@
             b-table-column( field="source" label="Source" sortable)
               a(v-bind:href="recipes.row.source") {{ recipes.row.source }}
             b-table-column(field="ingretients_number" label="Number of ingredients" sortable) {{ recipes.row.ingretients_number }}
-            b-table-column(field="ingredients" label="Ingredients" sortable) {{ showInstructions(recipes.row.ingredients,recipes.row.ingretients_number) }}
+            b-table-column(field="ingredients" label="Ingredients" sortable) {{ showIngredients(recipes.row.ingredients,recipes.row.ingretients_number) }}
             b-table-column(field="prep_instructions" label="Preparation instructions" sortable) {{ showPreparationInstructions(recipes.row.prep_instructions) }}
             b-table-column(field="prep_time" label="Preparation time" sortable) {{ showPreparationTime(recipes.row.prep_time) }}
             b-table-column(label="View")
@@ -51,7 +51,7 @@ export default {
     navigateTo (navigation) {
       this.$router.push( { name: navigation.name, query: navigation.query })
     },
-    showInstructions(ingredients, num) {
+    showIngredients(ingredients, num) {
       if(num === 3)
         return ingredients
       var ingredients_split = ingredients.split(',').slice(0,3)

@@ -44,6 +44,7 @@ import RecipesService from '@/services/RecipesService'
     }
     },
     mounted () {
+      // OVA preku store!!
       this.recipe = RecipesService.get(this.$route.query.id)
     }
     
