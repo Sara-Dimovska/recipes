@@ -7,11 +7,13 @@ import 'vuetify/dist/vuetify.min.css'
 import router from './router'
 import { sync } from 'vuex-router-sync'
 import store from '@/store/store'
+import Vuelidate from 'vuelidate'
 // import './assets/app.scss'
 // import '@mdi/font/css/materialdesignicons.min.css'
 
 Vue.use(Buefy)
 Vue.use(vuetify)
+Vue.use(Vuelidate)
 Vue.config.productionTip = false
 sync(store, router)
 

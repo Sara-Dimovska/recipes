@@ -3,8 +3,8 @@
     header
       div
         v-row(style="margin:25px;")
-          p(class="font-weight-black" style="font-size: 2em; margin-right:10px;") Recipe list:
-          v-btn(color="primary" fab small dark @click="this.$router.push( { name: 'add-recipe' })") +
+          p(class="font-weight-black" style="font-size: 2em; margin-right:10px;") Recipes:
+          v-btn(color="primary" fab small dark @click="$router.push( { name: 'add' })") +
     section 
       div(style="margin:25px;")
         b-table(:data="recipes" default-sort="priority")
@@ -18,13 +18,13 @@
             b-table-column(field="prep_instructions" label="Preparation instructions" sortable) {{ showPreparationInstructions(recipes.row.prep_instructions) }}
             b-table-column(field="prep_time" label="Preparation time" sortable) {{ showPreparationTime(recipes.row.prep_time) }}
             b-table-column(label="View")
-              v-btn(color="primary"  @click="navigateTo({name: 'details', query: {id: recipes.row.id} })") View 
+              v-btn(color="primary"  @click="$router.push({name: 'details', query: {id: recipes.row.id} })") View 
             b-table-column(label="Delete")
-              v-btn(color="error" @click.native="confirmDeleteDialogClicked(recipes.row.id, recipes.row.name)" ) Delete
+              v-btn(color="error" @click.native="confirmDeleteDialogClicked(recipes.row.id)" ) Delete
         v-dialog(v-model="confirmDeleteDialog"  max-width="550")
           v-card
-            v-card-title Are you sure you want to delete recipe with name: {{ deleteRecipeName }} ?
-            v-card-text By confirming this action this recipe will be delited.
+            v-card-title Are you sure you want to delete recipe with ID: {{ deleteRecipe_ID }} ?
+            v-card-text By confirming this action this recipe will be deleted.
             v-card-actions
               v-spacer
               v-btn(color="error" @click="deleteRecipe()") Yes
@@ -44,15 +44,11 @@ export default {
       recipes: [],
       confirmDeleteDialog: false,
       deleteRecipe_ID: null,
-      deleteRecipeName: ''
     }
   },
   methods: {
-    navigateTo (navigation) {
-      this.$router.push( { name: navigation.name, query: navigation.query })
-    },
     showIngredients(ingredients, num) {
-      if(num === 3)
+      if(num <= 3)
         return ingredients
       var ingredients_split = ingredients.split(',').slice(0,3)
         return ingredients_split.join() + ' (...)'
@@ -73,16 +69,24 @@ export default {
     },
     showPreparationTime(time){
       var time_split = time.split(':')
-      if(time_split[0] !== '00' )
+      if(time_split.length === 2) {
+
+        if(time_split[0].length < 2)
+          time_split[0] = `0${time_split[0]}`
+        if(time_split[1].length < 2)
+          time_split[1] = `0${time_split[1]}`
+
         return `${time_split[0]} hours ${time_split[1]} minutes`
-      return `${time_split[1]} minutes`
+      }
+      if(time_split[0].length < 2)
+          time_split[0] = `0${time_split[0]}`
+      return `${time_split[0]} minutes`
     },
-    confirmDeleteDialogClicked(id, name) {
+    confirmDeleteDialogClicked(id) {
       this.confirmDeleteDialog = true
       //console.log(id, name)
       this.deleteRecipe_ID = id
       //console.log(this.deleteRecipe_ID)
-      this.deleteRecipeName = name
     },
     deleteRecipe() {
       // console.log(this.deleteRecipe_ID)
@@ -94,9 +98,10 @@ export default {
     
   },
    mounted () {
-    var response = RecipesService.index()
-    this.recipes = response
-    this.$store.dispatch('setRecipes', response)
+    // var response = RecipesService.index()
+    // this.recipes = response
+    //  this.$store.dispatch('setRecipes', response)
+    this.recipes = this.$store.getters.recipes
 
   }
 }

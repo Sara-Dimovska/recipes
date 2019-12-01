@@ -19,8 +19,8 @@ export default new Router({
       component: RecipeDetails
     },
     {
-      path: '/recipes/add-recipe',
-      name: 'add-recipe',
+      path: '/recipes/add',
+      name: 'add',
       component: AddRecipe
     }
   ]
