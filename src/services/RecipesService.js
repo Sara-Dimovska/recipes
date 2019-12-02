@@ -5,7 +5,6 @@ export default {
     return recipes
   },
   get (id) {
-    // console.log(recipes.find(element => element.id === id))
     return recipes.find(element => element.id === id)
   }
 }

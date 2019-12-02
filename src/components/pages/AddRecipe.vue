@@ -4,8 +4,7 @@
       p(class="font-weight-black" style="font-size: 2em;") Create new recipe
       v-form( justify="center")
         v-row
-           v-col(cols="8")
-            
+           v-col(cols="8")       
         v-row
           v-col(cols="8")
             v-text-field(label="Recipe name" v-model="recipe.name" v-model.trim="$v.recipe.name.$model")
@@ -95,7 +94,6 @@ import { required, minLength } from 'vuelidate/lib/validators'
     },
     methods: {
       addIngredient() {
-        // this.ingredientsComponents.push('add')
         let ingredient = ''
         if(this.recipe.ingredients == '') {
           ingredient = `${this.newIngredient} ${this.newIngredientQuantity}`

@@ -29,6 +29,7 @@
 
 <script>
 import RecipesService from '@/services/RecipesService'
+import utils from '@/shared/utils'
 
   export default {
     data () {
@@ -48,28 +49,11 @@ import RecipesService from '@/services/RecipesService'
     }
     },
     mounted () {
-      //this.recipe = RecipesService.get(this.$route.query.id)
       this.recipe = this.$store.getters.getRecipeById(this.$route.query.id)
       this.ingredients = this.recipe.ingredients.split(',')
 
       const time = this.recipe.prep_time
-
-      if(time.indexOf(':') !== -1){
-        var time_split = time.split(':')
-       
-          
-          if(time_split[0].length < 2)
-            time_split[0] = `0${time_split[0]}`
-          if(time_split[1].length < 2)
-            time_split[1] = `0${time_split[1]}`
-
-          this.prep_time_formated =  `${time_split[0]} hours ${time_split[1]} minutes`
-        
-      }
-      
-      if(time.length < 2)
-          time = `0${time}`
-      this.prep_time_formated =  `${time} minutes`
+      this.prep_time_formated =  utils.formatTime(time)
     }
     
   }

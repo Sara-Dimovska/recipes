@@ -35,7 +35,6 @@ export default new Vuex.Store({
     deleteRecipe (state, id) {
       const index = state.recipes.findIndex(element => element.id === id)
       state.recipes.splice(index, 1)
-      state.ID--
     },
     increment_ID (state) {
       state.ID++
